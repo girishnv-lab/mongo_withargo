@@ -48,9 +48,10 @@ kubectl get svc argocd-server -n argocd
 ```
 
 4) **STEP 4**: Now, access ArgoCD UI using your EC2 public IP:
+```
   • HTTP: `http://<EC2-PUBLIC-IP>:8082`
   • HTTPS: `https://<EC2-PUBLIC-IP>:8444`
-
+  ```
 
 - Retrieve argocd admin password
 ```
