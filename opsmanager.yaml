@@ -1,0 +1,18 @@
+apiVersion: mongodb.com/v1
+kind: MongoDBOpsManager
+metadata:
+  name: om
+spec:
+  replicas: 1
+  version: "8.0.1"
+  adminCredentials: ops-manager-admin-secret
+  applicationDatabase:
+    members: 3
+    version: "6.0.5-ent"
+    podSpec:
+      podTemplate:
+        spec:
+          securityContext:
+            fsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
