@@ -107,6 +107,7 @@ This will ask for username and password. username is admin and password is extra
 
 ### Argo useful command lines
   1) Modify same application to use different repo path,
-    `argocd app set mongodb-opsmanager --path replicasets`
-
+```
+    argocd app set mongodb-opsmanager --path replicasets
+```
 
