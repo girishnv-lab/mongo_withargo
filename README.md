@@ -85,9 +85,9 @@ kubectl create secret generic ops-manager-admin-secret \
 7) **Step7**: 
 - Create Opsmanager application 
 ```
-argocd app create mongodb-cluster \
+argocd app create mongodb-opsmanager \
   --repo https://github.com/gireesh-nv/mongo_withargo.git \
-  --path mongo_withargo \
+  --path opsmanager \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace mongodb \
   --sync-policy automated
