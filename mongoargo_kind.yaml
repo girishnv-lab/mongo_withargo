@@ -1,0 +1,38 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: worker
+  extraPortMappings:
+    - containerPort: 30082
+      hostPort: 8443
+      protocol: TCP
+    - containerPort: 30083
+      hostPort: 27017
+      protocol: TCP
+    - containerPort: 30084
+      hostPort: 27018
+      protocol: TCP
+    - containerPort: 30085
+      hostPort: 27019
+      protocol: TCP
+    - containerPort: 30080
+      hostPort: 8080
+      protocol: TCP
+    - containerPort: 30081
+      hostPort: 8081
+      protocol: TCP
+    - containerPort: 389    
+      hostPort: 389         
+      protocol: TCP
+    - containerPort: 30002  
+      hostPort: 30002       
+      protocol: TCP
+    # Expose ArgoCD UI directly using a mapped port
+    - containerPort: 30090   # ArgoCD server HTTP
+      hostPort: 8082         # Exposed on EC2
+      protocol: TCP
+    - containerPort: 30091   # ArgoCD server HTTPS
+      hostPort: 8444         # Exposed on EC2
+      protocol: TCP
+- role: worker
