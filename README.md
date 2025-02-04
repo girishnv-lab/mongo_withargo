@@ -110,4 +110,17 @@ This will ask for username and password. username is admin and password is extra
 ```
     argocd app set mongodb-opsmanager --path replicasets
 ```
+2) Get the current admin password
+```
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode
+```
+3) Rotate the admin password,
+```
+kubectl patch secret argocd-secret -n argocd -p '{"data": {"admin.password": null, "admin.passwordMtime": null}}'       // sets current password to null
+kubectl delete pods -n argocd -l app.kubernetes.io/name=argocd-server      // restart the argocd pod
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d      // new password
+```
+    
+
+
 
