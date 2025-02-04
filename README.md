@@ -1,6 +1,6 @@
 ArgoCD setup in KIND
 
-1) **STEP 1**: First, isntall the kind cluster with given conf file
+**STEP 1**: First, isntall the kind cluster with given conf file
 - Download config file
 ```
 curl -Lo kind-config.yaml https://raw.githubusercontent.com/gireesh-nv/mongo_withargo/refs/heads/main/mongoargo_kind.yaml
@@ -11,7 +11,7 @@ curl -Lo kind-config.yaml https://raw.githubusercontent.com/gireesh-nv/mongo_wit
 kind create cluster --config kind-config.yaml --retain --image "kindest/node:v1.21.14
 ```
 
-2) **STEP 2**: Installing and configuring ArgoCD
+**STEP 2**: Installing and configuring ArgoCD
 - After Kind is set up, install Argo CD:
 ```
 kubectl create namespace argocd
@@ -19,7 +19,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 ```
 
 
-3) **STEP 3**: Run the following command to change ArgoCD service to match your Kind port mappings:
+**STEP 3**: Run the following command to change ArgoCD service to match your Kind port mappings:
 ```
 kubectl patch svc argocd-server -n argocd -p '{
   "spec": {
@@ -47,7 +47,7 @@ kubectl patch svc argocd-server -n argocd -p '{
 kubectl get svc argocd-server -n argocd
 ```
 
-4) **STEP 4**: Now, access ArgoCD UI using your EC2 public IP:
+**STEP 4**: Now, access ArgoCD UI using your EC2 public IP:
 ```
   • HTTP: `http://<EC2-PUBLIC-IP>:8082`
   • HTTPS: `https://<EC2-PUBLIC-IP>:8444`
@@ -58,14 +58,14 @@ kubectl get svc argocd-server -n argocd
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode
 ```
 
-5) **STEP 5**: Install mongodb with HELM
+**STEP 5**: Install mongodb with HELM
 ```
 helm repo add mongodb https://mongodb.github.io/helm-charts;
 helm install enterprise-operator mongodb/enterprise-operator --namespace mongodb --create-namespace;
 kubectl describe deployments mongodb-enterprise-operator -n mongodb;
 ```
 
-6) **Step6**: 
+**Step6**: 
 Copy your GIT repository URL (make sure the Git repo is well organised)
 ```
 https://github.com/gireesh-nv/mongo_withargo.git
@@ -82,7 +82,7 @@ kubectl create secret generic ops-manager-admin-secret \
   --from-literal=LastName="admin"
 ```
 
-7) **Step7**: 
+**Step7**: 
 - Create Opsmanager application 
 ```
 argocd app create mongodb-opsmanager \
