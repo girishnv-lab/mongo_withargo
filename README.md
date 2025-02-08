@@ -8,7 +8,7 @@ curl -Lo kind-config.yaml https://raw.githubusercontent.com/gireesh-nv/mongo_wit
 
 - install kind cluster
 ```
-kind create cluster --config kind-config.yaml --retain --image "kindest/node:v1.21.14
+kind create cluster --config kind-config.yaml --retain --image "kindest/node:v1.21.14"
 ```
 
 **STEP 2**: Installing and configuring ArgoCD
