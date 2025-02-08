@@ -1,0 +1,40 @@
+## prometheus to run on port 30002 (as per kind config file)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+        - name: prometheus
+          image: prom/prometheus:latest
+          args:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--storage.tsdb.path=/prometheus"
+            - "--web.listen-address=:30002"  # Change from 9090 to 30002
+          ports:
+            - containerPort: 30002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: mongodb
+spec:
+  selector:
+    app: prometheus
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 30002    # Changed from 9090
+      targetPort: 30002
+      nodePort: 30002  # Keep this as is
