@@ -25,8 +25,20 @@ nodes:
     - containerPort: 389    
       hostPort: 389         
       protocol: TCP
-    - containerPort: 30002  
-      hostPort: 30002       
+    - containerPort: 30101  
+      hostPort: 30101
+    - containerPort: 30102  
+      hostPort: 30102   
+    - containerPort: 30103  
+      hostPort: 30103   
+    - containerPort: 30104  
+      hostPort: 30104   
+    - containerPort: 30105  
+      hostPort: 30104   
+    - containerPort: 30106  
+      hostPort: 30106   
+    - containerPort: 30107  
+      hostPort: 30007   
       protocol: TCP
     # Expose ArgoCD UI directly using a mapped port
     - containerPort: 30090   # ArgoCD server HTTP
