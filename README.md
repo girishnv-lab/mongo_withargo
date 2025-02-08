@@ -81,8 +81,20 @@ kubectl create secret generic ops-manager-admin-secret \
   --from-literal=FirstName="admin" \
   --from-literal=LastName="admin"
 ```
+**Step 7**
+- Download and install ArgoCD command line utility from [here](https://argo-cd.readthedocs.io/en/stable/cli_installation/).
+```
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+sudo install -m 555 argocd-linux-amd64 /usr/bin/argocd
+rm argocd-linux-amd64
+```
 
-**Step7**: 
+**Step 8** Login to your argoCD from argocd command, 
+```
+argocd login <ec2_external_ip>:8082 --insecure
+```
+
+**Step9**: 
 - Create Opsmanager application 
 ```
 argocd app create mongodb-opsmanager \
