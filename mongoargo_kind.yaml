@@ -34,7 +34,7 @@ nodes:
     - containerPort: 30104  
       hostPort: 30104   
     - containerPort: 30105  
-      hostPort: 30104   
+      hostPort: 30105   
     - containerPort: 30106  
       hostPort: 30106   
     - containerPort: 30107  
