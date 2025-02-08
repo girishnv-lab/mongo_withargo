@@ -18,11 +18,22 @@ spec:
         - name: prometheus
           image: prom/prometheus:latest
           args:
-            - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--config.file=/etc/prometheus/prometheus.yml"  # Ensure correct file path
             - "--storage.tsdb.path=/prometheus"
-            - "--web.listen-address=:30002"  # Change from 9090 to 30002
+            - "--web.listen-address=:30002"
           ports:
             - containerPort: 30002
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/prometheus/prometheus.yml  # Mount as a file, not a directory
+              subPath: prometheus.yml  # Ensure only this file is mounted
+      volumes:
+        - name: config-volume
+          configMap:
+            name: prometheus-config
+            items:
+              - key: prometheus.yml  # Ensure only this key is used
+                path: prometheus.yml  # The file name inside the container
 ---
 apiVersion: v1
 kind: Service
