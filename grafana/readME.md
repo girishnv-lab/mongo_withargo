@@ -4,3 +4,4 @@
 ```
 http://<your_ec2_ip>:8081
 ```
+- default user is `admin`. Password `admin`
