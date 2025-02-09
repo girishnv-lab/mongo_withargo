@@ -22,6 +22,9 @@ nodes:
     - containerPort: 30081
       hostPort: 8081
       protocol: TCP
+    - containerPort: 30002
+      hostPort: 30002
+      protocol: TCP
     - containerPort: 389    
       hostPort: 389         
       protocol: TCP
