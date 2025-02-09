@@ -32,19 +32,20 @@ nodes:
       hostPort: 30101
       protocol: TCP
     - containerPort: 30102  
-      hostPort: 30102   
+      hostPort: 30102
+      protocol: TCP
     - containerPort: 30103  
       hostPort: 30103
-      hostPort: 30102
+      protocol: TCP
     - containerPort: 30104  
       hostPort: 30104
-      hostPort: 30102
+      protocol: TCP
     - containerPort: 30105  
       hostPort: 30105
-      hostPort: 30102
+      protocol: TCP
     - containerPort: 30106  
       hostPort: 30106
-      hostPort: 30102
+      protocol: TCP
     - containerPort: 30107  
       hostPort: 30007
       protocol: TCP
