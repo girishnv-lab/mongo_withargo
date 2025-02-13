@@ -65,6 +65,17 @@ helm install enterprise-operator mongodb/enterprise-operator --namespace mongodb
 kubectl describe deployments mongodb-enterprise-operator -n mongodb;
 ```
 
+Alternatively you can choose to manually create the Operator using the below command, this will isntall Operator version `1.30.0`
+```
+kubectl create namespace mongodb --dry-run=client -o yaml | kubectl apply -f - && \
+argocd app create mongodb_operator \
+  --repo https://github.com/gireesh-nv/mongo_withargo.git \
+  --path kubernetes_operator \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace mongodb \
+  --sync-policy automated
+```
+
 **Step6**: 
 Copy your GIT repository URL (make sure the Git repo is well organised)
 ```
@@ -75,6 +86,7 @@ https://github.com/gireesh-nv/mongo_withargo.git
 
 **Note**: The Opsmanager needs a pre created secret file called `organization-secret`. Create it on the kubernetes cluster
 ```
+kubectl create namespace mongodb --dry-run=client -o yaml | kubectl apply -f - && \
 kubectl create secret generic ops-manager-admin-secret \
   --from-literal=Username="admin@test.com" \
   --from-literal=Password="Adminn@123" \
@@ -97,6 +109,7 @@ argocd login <ec2_external_ip>:8082 --insecure
 **Step9**: 
 - Create Opsmanager application 
 ```
+kubectl create namespace mongodb --dry-run=client -o yaml | kubectl apply -f - && \
 argocd app create mongodb-opsmanager \
   --repo https://github.com/gireesh-nv/mongo_withargo.git \
   --path opsmanager \
@@ -108,6 +121,7 @@ This will ask for username and password. username is admin and password is extra
 
 - Create a MongoDB replicaset (make sure you have already applied configmap.yaml and secret yaml)
 ```
+kubectl create namespace mongodb --dry-run=client -o yaml | kubectl apply -f - && \
   argocd app create mongodb-replicaset \
   --repo https://github.com/gireesh-nv/mongo_withargo.git \
   --path replicasets \
