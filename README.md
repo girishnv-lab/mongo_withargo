@@ -89,7 +89,7 @@ https://github.com/gireesh-nv/mongo_withargo.git
 kubectl create namespace mongodb --dry-run=client -o yaml | kubectl apply -f - && \
 kubectl create secret generic ops-manager-admin-secret \
   --from-literal=Username="admin@test.com" \
-  --from-literal=Password="Adminn@123" \
+  --from-literal=Password="Admin@123" \
   --from-literal=FirstName="admin" \
   --from-literal=LastName="admin"
 ```
