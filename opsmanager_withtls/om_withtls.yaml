@@ -1,1 +1,42 @@
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: k8-rs1
+  namespace: mongodb
+spec:
+  type: ReplicaSet
+  members: 3
+  version: 8.0.9-ent
+# Ops Manager connection
+  opsManager:
+    configMapRef:
+      name: ops-manager-connection 
+  credentials: organization-secret
+# Ephemeral storage (no PVCs)
+  persistent: false
+# Security settings
+  security:
+    authentication:
+      enabled: true
+      modes:
+        - SCRAM-SHA-256
+      agents:
+        mode: SCRAM-SHA-256
+    tls:
+      enabled: true
+      ca: rs1-ca            # ConfigMap containing the CA (key: ca-pem)
+    certsSecretPrefix: myrs-tls
+# PodSpec with resource requests/limits
+  podSpec:
+    podTemplate:
+      spec:
+        containers:
+          - name: mongodb-enterprise-database
+            resources:
+              limits:
+                cpu: "2"
+                memory: "700Mi"
+              requests:
+                cpu: "1"
+                memory: "500Mi"
 
