@@ -42,7 +42,7 @@ kubectl patch svc argocd-server -n argocd -p '{
 }'
 ```
 
-#verify the change
+**verify the change**
 ```
 kubectl get svc argocd-server -n argocd
 ```
@@ -58,16 +58,24 @@ kubectl get svc argocd-server -n argocd
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode
 ```
 
-**STEP 5**: Install mongodb with HELM
+**Step 5**
+- Download and install ArgoCD command line utility from [here](https://argo-cd.readthedocs.io/en/stable/cli_installation/).
 ```
-helm repo add mongodb https://mongodb.github.io/helm-charts;
-helm install enterprise-operator mongodb/enterprise-operator --namespace mongodb --create-namespace;
-kubectl describe deployments mongodb-enterprise-operator -n mongodb;
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+sudo install -m 555 argocd-linux-amd64 /usr/bin/argocd
+rm argocd-linux-amd64
 ```
 
 **Step 6** Login to your argoCD from argocd command, 
 ```
 argocd login <ec2_external_ip>:8082 --insecure
+```
+
+**Step 7**: Install mongodb with HELM 
+```
+helm repo add mongodb https://mongodb.github.io/helm-charts;
+helm install enterprise-operator mongodb/enterprise-operator --namespace mongodb --create-namespace;
+kubectl describe deployments mongodb-enterprise-operator -n mongodb;
 ```
 
 Alternatively you can choose to manually create the Operator using the below command, this will isntall Operator version `1.30.0`
@@ -81,7 +89,7 @@ argocd app create mongodboperator \
   --sync-policy automated
 ```
 
-**Step 7**: 
+**Step 8**: 
 Copy your GIT repository URL (make sure the Git repo is well organised)
 ```
 https://github.com/gireesh-nv/mongo_withargo.git
@@ -98,15 +106,8 @@ kubectl create secret generic ops-manager-admin-secret \
   --from-literal=FirstName="admin" \
   --from-literal=LastName="admin"
 ```
-**Step 8**
-- Download and install ArgoCD command line utility from [here](https://argo-cd.readthedocs.io/en/stable/cli_installation/).
-```
-curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-sudo install -m 555 argocd-linux-amd64 /usr/bin/argocd
-rm argocd-linux-amd64
-```
 
-**Step9**: 
+**Step 9**: 
 - Create Opsmanager application 
 ```
 kubectl create namespace mongodb --dry-run=client -o yaml | kubectl apply -f - && \
@@ -117,7 +118,7 @@ argocd app create mongodb-opsmanager \
   --dest-namespace mongodb \
   --sync-policy automated
 ```
-This will ask for username and password. username is admin and password is extracted in step4. 
+**This will ask for username and password. username is admin and password is extracted in step4.**
 
 - Create a MongoDB replicaset (make sure you have already applied configmap.yaml and secret yaml)
 ```
