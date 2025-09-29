@@ -73,9 +73,9 @@ argocd login <ec2_external_ip>:8082 --insecure
 Alternatively you can choose to manually create the Operator using the below command, this will isntall Operator version `1.30.0`
 ```
 kubectl create namespace mongodb --dry-run=client -o yaml | kubectl apply -f - && \
-argocd app create mongodb_operator \
+argocd app create mongodboperator \
   --repo https://github.com/gireesh-nv/mongo_withargo.git \
-  --path kubernetes_operator \
+  --path kubernetesoperator \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace mongodb \
   --sync-policy automated
