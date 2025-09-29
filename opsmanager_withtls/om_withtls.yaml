@@ -10,7 +10,7 @@ spec:
 # Ops Manager connection
   opsManager:
     configMapRef:
-      name: ops-manager-connection 
+      name: my-project 
   credentials: organization-secret
 # Ephemeral storage (no PVCs)
   persistent: false
