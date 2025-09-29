@@ -65,6 +65,11 @@ helm install enterprise-operator mongodb/enterprise-operator --namespace mongodb
 kubectl describe deployments mongodb-enterprise-operator -n mongodb;
 ```
 
+**Step 6** Login to your argoCD from argocd command, 
+```
+argocd login <ec2_external_ip>:8082 --insecure
+```
+
 Alternatively you can choose to manually create the Operator using the below command, this will isntall Operator version `1.30.0`
 ```
 kubectl create namespace mongodb --dry-run=client -o yaml | kubectl apply -f - && \
@@ -76,7 +81,7 @@ argocd app create mongodb_operator \
   --sync-policy automated
 ```
 
-**Step6**: 
+**Step 7**: 
 Copy your GIT repository URL (make sure the Git repo is well organised)
 ```
 https://github.com/gireesh-nv/mongo_withargo.git
@@ -93,17 +98,12 @@ kubectl create secret generic ops-manager-admin-secret \
   --from-literal=FirstName="admin" \
   --from-literal=LastName="admin"
 ```
-**Step 7**
+**Step 8**
 - Download and install ArgoCD command line utility from [here](https://argo-cd.readthedocs.io/en/stable/cli_installation/).
 ```
 curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
 sudo install -m 555 argocd-linux-amd64 /usr/bin/argocd
 rm argocd-linux-amd64
-```
-
-**Step 8** Login to your argoCD from argocd command, 
-```
-argocd login <ec2_external_ip>:8082 --insecure
 ```
 
 **Step9**: 
